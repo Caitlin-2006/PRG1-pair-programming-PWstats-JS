@@ -3,6 +3,7 @@ const fs = require("fs");
 const inputFile = "10000-most-common-passwords.csv";
 const outputFile = "statistics.csv";
 const delimiter = ",";
+let lengths = new Array(20).fill(0);
 
 function deleteExistingOutputFile() {
   if (fs.existsSync(outputFile)) {
@@ -17,9 +18,15 @@ function processData() {
   for (line of lines) {
     elements = line.split(delimiter);
     console.log(elements);
-  }
+    passwordLength = elements[1].length;
+    lengths[passwordLength]++;
 }
-
-// Main execution
-deleteExistingOutputFile(); 
-processData();
+}
+  // Main execution
+  deleteExistingOutputFile();
+  processData();
+let numChars = 0
+for (length of lengths) {
+  fs.appendFileSync(outputFile, `Characters: ${numChars}, Count: ${length}\n`);
+  numChars++
+}
