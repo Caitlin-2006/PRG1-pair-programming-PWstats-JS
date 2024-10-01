@@ -19,13 +19,13 @@ function processData() {
     elements = line.split(delimiter);
     passwordLength = elements[1].length;
     lengths[passwordLength]++;
+  }
 }
-}
-  // Main execution
-  deleteExistingOutputFile();
-  processData();
-let numChars = 0
+// Main execution
+deleteExistingOutputFile();
+processData();
+let numChars = 0;
 for (length of lengths) {
   fs.appendFileSync(outputFile, `Characters: ${numChars}, Count: ${length}\n`);
-  numChars++
+  numChars++;
 }
